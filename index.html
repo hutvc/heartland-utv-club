@@ -29,9 +29,12 @@
   <main>
     <section class="hero">
       <div class="hero-inner">
+
         <div class="hero-text">
           <p class="pill">501(c)(3) Nonprofit • Central Iowa</p>
+
           <h1>Join the <span>Adventure</span></h1>
+
           <h2>Ride Together. Give Back. Build Community.</h2>
 
           <p>
@@ -53,39 +56,9 @@
           <img src="photos/hero/hero2.jpg" class="slide" alt="Heartland UTV Club mud ride">
           <img src="photos/hero/hero3.jpg" class="slide" alt="Heartland UTV Club members">
           <img src="photos/hero/hero4.jpg" class="slide" alt="Heartland UTV Club event">
+          <img src="photos/hero/hero5.jpg" class="slide" alt="Heartland UTV Club ride">
         </div>
-      </div>
-    </section>
 
-    <section class="section grid2">
-      <div>
-        <h2>Welcome to Heartland UTV Club</h2>
-        <p>
-          Heartland UTV Club is a family-friendly riding club built around trails,
-          community, volunteer support, outdoor recreation, and responsible riding.
-        </p>
-      </div>
-
-      <div class="notice">
-        NO WIDTH RESTRICTIONS!!
-      </div>
-    </section>
-
-    <section class="section light cards3">
-      <div class="card">
-        <h3>Membership</h3>
-        <p class="price">$125/year</p>
-        <p>Full year from the date you sign up.</p>
-      </div>
-
-      <div class="card">
-        <h3>Property</h3>
-        <p>200 acres with approximately 130 acres of timber trails.</p>
-      </div>
-
-      <div class="card">
-        <h3>Family Friendly</h3>
-        <p>Household membership includes 2 adults and anyone under 18 in the household.</p>
       </div>
     </section>
   </main>
@@ -106,10 +79,12 @@
       slides[index].classList.add("active");
     }
 
-    setInterval(() => {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    }, 4000);
+    if (slides.length > 0) {
+      setInterval(() => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+      }, 4000);
+    }
   </script>
 </body>
 </html>

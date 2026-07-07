@@ -7,42 +7,22 @@
   <meta name="description" content="Heartland UTV Club - Central Iowa UTV and ATV membership, events, sponsors, trails, rules, and gallery.">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <header class="topbar">
-    <a href="index.html">
-      <img src="assets/heartland-logo.png" class="logo" alt="Heartland UTV Club logo">
-    </a>
-
+    <a href="index.html"><img src="assets/heartland-logo.png" class="logo" alt="Heartland UTV Club logo"></a>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="membership.html">Membership</a>
-      <a href="events.html">Events</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="sponsors.html">Sponsors</a>
-      <a href="trail-map.html">Trail Map</a>
-      <a href="rules.html">Rules</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html">Home</a><a href="membership.html">Membership</a><a href="events.html">Events</a><a href="gallery.html">Gallery</a><a href="sponsors.html">Sponsors</a><a href="trail-map.html">Trail Map</a><a href="rules.html">Rules</a><a href="contact.html">Contact</a>
     </nav>
   </header>
 
   <main>
     <section class="hero">
       <div class="hero-inner">
-
         <div class="hero-text">
           <p class="pill">501(c)(3) Nonprofit • Central Iowa</p>
-
           <h1>Join the <span>Adventure</span></h1>
-
           <h2>Ride Together. Give Back. Build Community.</h2>
-
-          <p>
-            Heartland UTV Club gives members full 24/7 access to a 200 acre property
-            including approximately 130 acres of timber trails, members shop/clubhouse,
-            indoor restrooms, wash down area, fishing pond, and more.
-          </p>
-
+          <p>Heartland UTV Club gives members full 24/7 access to a 200 acre property including approximately 130 acres of timber trails, members shop/clubhouse, indoor restrooms, wash down area, fishing pond, and more.</p>
           <div class="buttons">
             <a class="btn gold" href="https://docs.google.com/forms/d/e/1FAIpQLSf6QDpy7ruusru1dC-jL7EMSxUxBSbG2A_0yS2YULFeCMoRYg/viewform?usp=header">Join Now</a>
             <a class="btn red" href="sponsors.html">Become a Sponsor</a>
@@ -51,14 +31,18 @@
           </div>
         </div>
 
-        <div class="hero-slider">
+        <div class="hero-slider" aria-label="Heartland UTV Club photo slideshow">
           <img src="photos/hero/hero1.jpg" class="slide active" alt="Heartland UTV Club trail ride">
           <img src="photos/hero/hero2.jpg" class="slide" alt="Heartland UTV Club mud ride">
           <img src="photos/hero/hero3.jpg" class="slide" alt="Heartland UTV Club members">
           <img src="photos/hero/hero4.jpg" class="slide" alt="Heartland UTV Club event">
           <img src="photos/hero/hero5.jpg" class="slide" alt="Heartland UTV Club ride">
+          <button class="slider-arrow prev" type="button" aria-label="Previous photo">&#10094;</button>
+          <button class="slider-arrow next" type="button" aria-label="Next photo">&#10095;</button>
+          <div class="slider-dots">
+            <button class="dot active" type="button"></button><button class="dot" type="button"></button><button class="dot" type="button"></button><button class="dot" type="button"></button><button class="dot" type="button"></button>
+          </div>
         </div>
-
       </div>
     </section>
   </main>
@@ -71,20 +55,29 @@
   </footer>
 
   <script>
-    let currentSlide = 0;
     const slides = document.querySelectorAll(".hero-slider .slide");
+    const dots = document.querySelectorAll(".slider-dots .dot");
+    const prevButton = document.querySelector(".slider-arrow.prev");
+    const nextButton = document.querySelector(".slider-arrow.next");
+    const slider = document.querySelector(".hero-slider");
+    let currentSlide = 0;
+    let slideTimer;
 
     function showSlide(index) {
-      slides.forEach(slide => slide.classList.remove("active"));
-      slides[index].classList.add("active");
+      if (!slides.length) return;
+      currentSlide = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === currentSlide));
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === currentSlide));
     }
+    function nextSlide(){ showSlide(currentSlide + 1); }
+    function startSlider(){ stopSlider(); slideTimer = setInterval(nextSlide, 4500); }
+    function stopSlider(){ if (slideTimer) clearInterval(slideTimer); }
 
-    if (slides.length > 0) {
-      setInterval(() => {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-      }, 4000);
-    }
+    if (nextButton) nextButton.addEventListener("click", () => { nextSlide(); startSlider(); });
+    if (prevButton) prevButton.addEventListener("click", () => { showSlide(currentSlide - 1); startSlider(); });
+    dots.forEach((dot, i) => dot.addEventListener("click", () => { showSlide(i); startSlider(); }));
+    if (slider) { slider.addEventListener("mouseenter", stopSlider); slider.addEventListener("mouseleave", startSlider); }
+    startSlider();
   </script>
 </body>
 </html>

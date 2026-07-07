@@ -1,0 +1,1 @@
+Upload index.html and style.css to replace your current files. Keep assets and photos folders as-is.
